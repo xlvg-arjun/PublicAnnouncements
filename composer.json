@@ -1,7 +1,14 @@
 {
+    "autoload": {
+        "psr-4": {
+            "App\\": "main/"
+        }
+    },
     "require": {
         "slim/slim": "4.*",
         "slim/psr7": "^1.1",
-        "guzzlehttp/guzzle": "^6.5"
+        "guzzlehttp/guzzle": "^6.5",
+        "php-di/php-di": "^6.1",
+        "slim/twig-view": "^3.1"
     }
 }

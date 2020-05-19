@@ -1,0 +1,1 @@
+A simple Slim-PHP based application. Made for educational purposes and free to use. I would prefer forking but it's up to you.
