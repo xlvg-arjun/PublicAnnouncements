@@ -21,7 +21,8 @@ $container->set('view', function() {
 $app = AppFactory::create();
 
 $app->add(TwigMiddleware::createFromContainer($app));
-$app->get('/', UserController::class . ':home');
+$app->get('/', UserController::class . ':home')->add(UserController::class . ':ipAuthenticate');
+$app->get('/auth', UserController::class . ':auth');
 
 // $app->get('/', function (Request $request, Response $response, array $args) {
   // $response->getBody()->write("Hello world!");
