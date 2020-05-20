@@ -10,6 +10,7 @@ use Slim\Views\TwigMiddleware;
 use App\Controllers\User as UserController;
 
 require_once(__DIR__ . "/../vendor/autoload.php");
+require_once(__DIR__ . "/../config/load_env_values.php");
 
 $container = new Container();
 AppFactory::setContainer($container);
@@ -23,6 +24,8 @@ $app = AppFactory::create();
 $app->add(TwigMiddleware::createFromContainer($app));
 $app->get('/', UserController::class . ':home')->add(UserController::class . ':ipAuthenticate');
 $app->get('/auth', UserController::class . ':auth');
+$app->get('/check-db', UserController::class . ':check');
+// $app->get('/auth', UserController::class . ':handleAuth');
 
 // $app->get('/', function (Request $request, Response $response, array $args) {
   // $response->getBody()->write("Hello world!");

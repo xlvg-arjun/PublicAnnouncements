@@ -1,0 +1,21 @@
+{% extends '__templates/general.twig' %}
+{% block additionalStyles %}
+	<link rel="stylesheet" href="css/auth.css"/>
+	<link rel="stylesheet" href="css/auth-form.css"/>
+{% endblock %}
+{% block content %}
+	<div class="auth-page container text-center">
+		<form method="POST" action="/login">
+			signin
+			<input type="text" name="loginUsername"/>
+			<input type="password" name="loginPassword"/>
+		</form>
+
+		<form method="POST" action="/register">
+			signup
+			<input type="text" name="signupUsername"/>
+			<input type="password" name="signupPassword"/>
+			<input type="password" name="signupPasswordRepeat"/>
+		</form>
+	</div>
+{% endblock %}
