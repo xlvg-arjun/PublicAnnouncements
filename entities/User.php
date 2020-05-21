@@ -1,6 +1,7 @@
 <?php
 
 namespace Models {
+  use Doctrine\Common\Collections\ArrayCollection;
   /**
    * @Entity @Table(name="user")
    **/
@@ -15,10 +16,17 @@ namespace Models {
     /** @Column(type="string") **/
     protected $password;
 
+    /**
+     * One User has many posts. This is the inverse side.
+     * @OneToMany(targetEntity="Post", mappedBy="user")
+     */
+    private $posts;
+
     public function __construct(string $username, string $password)
     {
       $this->username = $username;
       $this->password = $password;
+      $this->posts = new ArrayCollection();
     }
 
     # Accessors

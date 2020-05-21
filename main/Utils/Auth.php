@@ -10,9 +10,9 @@ namespace App\Utils {
   {
     private static $KEY = null;
     private static $JWT_ALG = 'HS256';
-    public static function setSession($username): void
+    public static function setSession($userId): void
     {
-      $_SESSION['user'] = $username;
+      $_SESSION['userId'] = $userId;
     }
 
     public static function encodeJwtToken($payload)

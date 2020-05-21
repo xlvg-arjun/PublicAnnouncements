@@ -59,7 +59,7 @@ namespace App\Controllers {
       $user = $query->getSingleResult();
       $comparison_result = password_verify($password, $user->getPassword());
       if ($comparison_result) {
-        AppAuth::setSession($user->getUsername());
+        AppAuth::setSession($user->getId());
         $response = Url::redirectedResponse($response, "profile");
       } else {
         $response = Url::redirectedResponse($response, "auth");
