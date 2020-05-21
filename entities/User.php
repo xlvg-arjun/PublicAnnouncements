@@ -10,15 +10,15 @@ namespace Models {
     protected $id;
 
     /** @Column(type="string") **/
-    protected $name;
+    protected $username;
 
     /** @Column(type="string") **/
-    protected $ip;
+    protected $password;
 
-    public function __construct(string $name, string $ip)
+    public function __construct(string $username, string $password)
     {
-      $this->name = $name;
-      $this->ip = $ip;
+      $this->username = $username;
+      $this->password = $password;
     }
 
     # Accessors
@@ -26,13 +26,13 @@ namespace Models {
     {
       return $this->id;
     }
-    public function getName(): string
+    public function getUsername(): string
     {
-      return $this->name;
+      return $this->username;
     }
-    public function getIp(): string
+    public function getPassword(): string
     {
-      return $this->ip;
+      return $this->password;
     }
   }
 }
