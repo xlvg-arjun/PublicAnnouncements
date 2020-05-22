@@ -41,9 +41,19 @@ namespace Models {
       return $this->post;
     }
 
+    public function setPost(\Models\Post $post): void
+    {
+      $this->post = $post;
+    }
+
     public function getUser(): \Models\User
     {
       return $this->user;
+    }
+
+    public function setUser(\Models\User $user): void
+    {
+      $this->user = $user;
     }
   }
 }

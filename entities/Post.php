@@ -61,5 +61,11 @@ namespace Models {
     {
       return $this->comments;
     }
+
+    public function addComment(\Models\Comment $comment): void
+    {
+      $this->comments->add($comment);
+      $comment->setPost($this);
+    }
   }
 }
