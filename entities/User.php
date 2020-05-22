@@ -22,11 +22,29 @@ namespace Models {
      */
     private $posts;
 
+    /**
+     * Many Users have Many Users.
+     * @ManyToMany(targetEntity="User", mappedBy="following")
+     */
+    private $followers;
+
+    /**
+     * Many Users have many Users.
+     * @ManyToMany(targetEntity="User", inversedBy="followers")
+     * @JoinTable(name="followings",
+     *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="followed_user_id", referencedColumnName="id")}
+     *      )
+     */
+    private $following;
+
     public function __construct(string $username, string $password)
     {
       $this->username = $username;
       $this->password = $password;
       $this->posts = new ArrayCollection();
+      $this->followers = new ArrayCollection();
+      $this->following = new ArrayCollection();
     }
 
     # Accessors
@@ -45,6 +63,19 @@ namespace Models {
     public function addPost(Post $post): void
     {
       $this->posts->add($post);
+    }
+    public function follow(User $user)
+    {
+      $this->following->add($user);
+      $this->followers->add($this);
+    }
+    public function getFollowing()
+    {
+      return $this->following;
+    }
+    public function getFollowers()
+    {
+      return $this->followers;
     }
   }
 }
