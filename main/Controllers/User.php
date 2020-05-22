@@ -14,8 +14,9 @@ namespace App\Controllers {
   use \Vectorface\Whip\Whip;
 
   use \Models\User as UserModel;
+  use Slim\Psr7\Response as Psr7Response;
 
-  class User
+class User
   {
     protected $container;
 
@@ -26,6 +27,7 @@ namespace App\Controllers {
 
     public function auth(Request $request, Response $response, array $args)
     {
+      // echo "What";
       return $this->container->get('view')->render($response, 'pages/auth.twig');
     }
 
@@ -65,6 +67,24 @@ namespace App\Controllers {
         $response = Url::redirectedResponse($response, "auth");
       }
       return $response;
+    }
+
+    public function checkAuth(Request $request, RequestHandler $requestHandler)
+    {
+      if(AppAuth::isAuth()) {
+        $response = $requestHandler->handle($request);
+      } else {
+        $response = new Psr7Response();
+        $response = Url::redirectedResponse($response, "auth");
+      }
+      // $response = new Psr7Response();
+      // $response = Url::redirectedResponse($response, "auth");
+      return $response;
+    }
+
+    public function logout(Request $request, Response $response, array $args)
+    {
+
     }
 
     public function handleAuth(Request $request, Response $response, array $args)

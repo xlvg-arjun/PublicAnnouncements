@@ -5,6 +5,13 @@
 {% endblock %}
 {% block content %}
 	<div>
-    Success!
+		<div class="writer-container">
+			<form method="POST" action="/post">
+				<input type="text" placeholder="title" name="postTitle" />
+				<textarea placeholder="Main Text" name="postMainText"></textarea>
+				<input type="submit" value="" />
+				{# <input type="submit" value=""> #}
+			</form>
+		</div>
   </div>
 {% endblock %}

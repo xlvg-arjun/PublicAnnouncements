@@ -49,6 +49,10 @@ namespace Models {
     {
       return $this->mainText;
     }
+    public function setUser($user): void
+    {
+      $this->user = $user;
+    }
     public function getUser(): User
     {
       return $this->user;

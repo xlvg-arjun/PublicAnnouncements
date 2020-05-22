@@ -42,5 +42,9 @@ namespace Models {
     {
       return $this->password;
     }
+    public function addPost(Post $post): void
+    {
+      $this->posts->add($post);
+    }
   }
 }
