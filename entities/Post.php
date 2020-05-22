@@ -2,7 +2,10 @@
 
 namespace Models {
   use Doctrine\Common\Collections\ArrayCollection;
-  /**
+    use Doctrine\Common\Collections\Collection;
+    use Doctrine\ORM\PersistentCollection;
+
+/**
    * @Entity @Table(name="post")
    **/
   class Post
@@ -57,7 +60,7 @@ namespace Models {
     {
       return $this->user;
     }
-    public function getComments(): ArrayCollection
+    public function getComments(): Collection
     {
       return $this->comments;
     }

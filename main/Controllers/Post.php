@@ -9,8 +9,10 @@ namespace App\Controllers {
 
   use \AppConfig\EntityManager as EntityManager;
   use App\Utils\Auth as AppAuth;
+    use App\Utils\Url;
     use Models\Comment;
     use Models\Post as PostModel;
+    use Slim\Routing\RouteContext;
 
 class Post {
     protected $container;
@@ -32,8 +34,20 @@ class Post {
     }
 
     public function view(Request $request, Response $response, array $args) {
-      echo "I will save you";
-      return $response;
+      // echo "I will save you";
+      // return $response;
+      $post_id = $args['post_id'];
+      $em = EntityManager::getEntityManager();
+      $query = $em->createQuery("SELECT p FROM \Models\Post p WHERE p.id = :post_id");
+      $query->setParameter('post_id', $post_id);
+      // $query = EntityManager::getEntityManager()->createQuery("SELECT p FROM \Models\Post p WHERE p.id = :post_id");
+      // $query->setParameter('post_id', $post_id);
+      $post = $query->getSingleResult();
+      // print_r($post);
+      // echo "Why";
+      // echo $post->getComments();
+      // return $response;
+      return $this->container->get('view')->render($response, 'pages/view_post.twig', [ 'post' => $post ]);
     }
 
     public function create(Request $request, Response $response, array $args) {
@@ -56,7 +70,8 @@ class Post {
 
     public function makeComment(Request $request, Response $response, array $args) {
       $body = $request->getParsedBody();
-      list('commentText' => $commentText, 'postId' => $post_id) = $body;
+      $post_id = $args['post_id'];
+      list('commentContent' => $commentText) = $body;
       $user_id = AppAuth::getSession();
       $em = EntityManager::getEntityManager();
       $query = $em->createQuery("SELECT p FROM \Models\Post p WHERE p.id = :post_id")->setParameter('post_id', $post_id);
@@ -70,9 +85,8 @@ class Post {
       $em->persist($post);
       $em->persist($new_comment);
       $em->flush();
-      $body = $response->getBody();
-      $body->write("Success");
-      return $response->withBody($body);
+      $response = Url::redirectedResponse($response, "post/" . $post->getId());
+      return $response;
     }
   }
 }

@@ -52,9 +52,10 @@ $app->group('', function (RouteCollectorProxy $group) {
 })->add(UserController::class . ':checkAuth');
 
 $app->group('/post', function (RouteCollectorProxy $group) {
-  $group->get('', PostController::class . ':view');
   $group->post('', PostController::class . ':create');
   $group->get('/all', PostController::class . ':all');
+  $group->post('/{post_id}/comment', PostController::class . ':makeComment');
+  $group->get('/{post_id}', PostController::class . ':view');
 })->add(UserController::class . ':checkAuth');
 
 
