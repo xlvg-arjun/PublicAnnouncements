@@ -54,6 +54,7 @@ $app->group('', function (RouteCollectorProxy $group) {
 $app->group('/post', function (RouteCollectorProxy $group) {
   $group->get('', PostController::class . ':view');
   $group->post('', PostController::class . ':create');
+  $group->get('/all', PostController::class . ':all');
 })->add(UserController::class . ':checkAuth');
 
 

@@ -1,0 +1,22 @@
+{% extends '__templates/general.twig' %}
+{% block additionalStyles %}{# <link rel="stylesheet" href="css/auth.css"/> #}
+	{# <link rel="stylesheet" href="css/auth-form.css"/> #}
+{% endblock %}
+{% block content %}
+	<div class="posts-page container text-center">
+		{% for post in posts %}
+			<div data-postid={{ post.getId() }}>
+				<div>
+					<h3>{{ post.getTitle() }}</h3>
+					<p>
+						{{ post.getMainText() }}
+					</p>
+				</div>
+				<form method="POST" action={{"/post/#{post.getId()}/comment"}}>
+          <textarea name="commentContent" cols="30" rows="10"></textarea>
+          <input type="submit" value="Make Comment">
+        </form>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}
