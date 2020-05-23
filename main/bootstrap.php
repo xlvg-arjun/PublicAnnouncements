@@ -39,6 +39,7 @@ $app->add(TwigMiddleware::createFromContainer($app));
 // $app->post('/post', PostController::class . ':create');
 // $app->get('/auth', UserController::class . ':handleAuth');
 
+
 $app->group('', function (RouteCollectorProxy $group) {
   $group->get('/', UserController::class . ':home');
   $group->get('/auth', UserController::class . ':auth');
@@ -57,6 +58,11 @@ $app->group('/post', function (RouteCollectorProxy $group) {
   $group->post('/{post_id}/comment', PostController::class . ':makeComment');
   $group->get('/{post_id}', PostController::class . ':view');
 })->add(UserController::class . ':checkAuth');
+
+
+$app->group('/user', function (RouteCollectorProxy $group) {
+  $group->get('/profile/{user_id}', UserController::class . ':viewUser');
+});
 
 
 // $app->get('/', function (Request $request, Response $response, array $args) {

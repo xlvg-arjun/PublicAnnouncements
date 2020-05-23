@@ -7,11 +7,8 @@ namespace App\Controllers {
   use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
   use Psr\Http\Message\ResponseInterface as Response;
   use \AppConfig\EntityManager as EntityManager;
-  use \App\Utils\Validator as Validator;
   use \App\Utils\Url as Url;
   use \App\Utils\Auth as AppAuth;
-
-  use \Vectorface\Whip\Whip;
 
   use \Models\User as UserModel;
   use Slim\Psr7\Response as Psr7Response;
@@ -69,6 +66,19 @@ class User
       return $response;
     }
 
+    public function viewUser(Request $request, Response $response, array $args)
+    {
+      $user_id = $args['user_id'];
+      if (AppAuth::isAuth() && (AppAuth::getSession() == $user_id)) {
+        $response = Url::redirectedResponse($response, 'profile');
+        return $response;
+      }
+      $em = EntityManager::getEntityManager();
+      $query = $em->createQuery("SELECT u FROM \Models\User u WHERE u.id = :user_id")->setParameter('user_id', $user_id);
+      $user = $query->getSingleResult();
+      return $this->container->get('view')->render($response, 'pages/view_user.twig', ['user' => $user]);
+    }
+
     public function checkAuth(Request $request, RequestHandler $requestHandler)
     {
       if(AppAuth::isAuth()) {
@@ -85,19 +95,6 @@ class User
     public function logout(Request $request, Response $response, array $args)
     {
 
-    }
-
-    public function handleAuth(Request $request, Response $response, array $args)
-    {
-      // $body = $request->getParsedBody();
-      $whip = new Whip();
-      $body = $request->getParsedBody();
-      $username = $body["username"];
-      $password = $body["password"];
-      echo $username;
-      echo $password;
-      // $user = new UserModel($username, $ip);
-      return $response;
     }
 
     public function check(Request $request, Response $response, array $args)

@@ -1,0 +1,53 @@
+{% extends '__templates/general.twig' %}
+{% block additionalStyles %}{# <link rel="stylesheet" href="css/auth.css"/> #}
+	{# <link rel="stylesheet" href="css/auth-form.css"/> #}
+{% endblock %}
+{% block content %}
+	<div class="invididual-user-page container text-center">
+		<div data-userid={{ user.getId() }}>
+			<h4>{{ user.getUsername() }}</h4>
+			<h4>{{user.getEmail() }}</h4>
+			
+      <button>Follow</button>
+
+      <div>
+        <div>
+          <h4>Following</h4>
+          <ul></ul>
+        </div>
+        <div>
+          <h4>Followers</h4>
+          <ul></ul>
+        </div>
+      </div>
+
+			<div>
+			<h5>Posts</h5>
+				{% for post in user.getPosts() %}
+					<div data-postid={{ post.getId() }}>
+						<div>
+							<h4>{{ post.getTitle() }}</h6>
+							<p>
+								{{ comment.getContent() }}
+							</p>
+						</div>
+            <div>
+              <h5>Comments</h5>
+              {% for comment in post.getComments() %}
+                <div>
+                  <h5>{{ comment.getUser().getUsername() }}</h5>
+                  <p>{{ comment.getContent() }}</p>
+                </div>
+              {% endfor %}
+            </div>
+					</div>
+				{% endfor %}
+			</div>
+
+			<form method="POST" action={{"/post/#{post.getId()}/comment"}}>
+				<textarea name="commentContent" cols="30" rows="10"></textarea>
+				<input type="submit" value="Make Comment">
+			</form>
+		</div>
+	</div>
+{% endblock %}
