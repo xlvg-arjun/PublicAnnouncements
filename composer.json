@@ -23,7 +23,7 @@
         "vlucas/phpdotenv": "^4.1",
         "rakit/validation": "^1.2",
         "vectorface/whip": "^0.3.2",
-        "firebase/php-jwt": "^5.2",
+        "firebase/php-jwt": "^6.0",
         "middlewares/trailing-slash": "^2.0"
     }
 }
